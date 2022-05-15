@@ -2,8 +2,10 @@ package study.springcore.autowired;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Service;
 import study.springcore.AutoAppConfig;
 import study.springcore.discount.DiscountPolicy;
 import study.springcore.member.Grade;
@@ -28,10 +30,12 @@ public class AllBeanTest {
         Assertions.assertThat(rateDiscountPrice).isEqualTo(2000);
     }
 
+    @Service
     static class DiscountService {
         private final Map<String, DiscountPolicy> policyMap;
         private final List<DiscountPolicy> policies;
 
+        @Autowired // 생성자가 하나라서 생략 가능
         public DiscountService(Map<String, DiscountPolicy> policyMap, List<DiscountPolicy> policies) {
             this.policyMap = policyMap;
             this.policies = policies;
